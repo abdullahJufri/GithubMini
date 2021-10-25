@@ -31,6 +31,8 @@ class DetailUserActivity : AppCompatActivity() {
 
 
         val username : String = intent.getStringExtra(EXTRA_USERNAME).toString()
+        val bundle = Bundle()
+        bundle.putString(EXTRA_USERNAME, username)
 
         if (username != null){
             viewModel.setUserDetail(username)
@@ -55,7 +57,7 @@ class DetailUserActivity : AppCompatActivity() {
                 }
             }
         })
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailUserActivity, username)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
 
@@ -67,14 +69,7 @@ class DetailUserActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this, {
             showLoading(it)
         })
-
-
-
-
     }
-
-
-
 
 
     private fun showLoading(isLoading: Boolean) {
