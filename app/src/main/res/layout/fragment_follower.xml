@@ -8,14 +8,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_users"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="16dp"
         tools:listitem="@layout/item_row_user" />
 
     <ProgressBar

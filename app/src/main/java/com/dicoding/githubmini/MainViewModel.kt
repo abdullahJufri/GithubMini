@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 class MainViewModel : ViewModel() {
     private val _listUsers = MutableLiveData<ArrayList<User>>()

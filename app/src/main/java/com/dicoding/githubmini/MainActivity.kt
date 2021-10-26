@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         adapter = UsersAdapter()
         adapter.notifyDataSetChanged()
 
-        adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback{
+        adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
 
             override fun onItemClicked(data: User) {
                 Intent(this@MainActivity, DetailUserActivity::class.java).also {
@@ -44,17 +44,18 @@ class MainActivity : AppCompatActivity() {
         binding.rvUsers.setHasFixedSize(true)
 
 
-    viewModel.getListUsers().observe(this, {
-        if(it != null){
-            adapter.setList(it)
-        }
-    })
+        viewModel.getListUsers().observe(this, {
+            if (it != null) {
+                adapter.setList(it)
+            }
+        })
 
-    viewModel.isLoading.observe(this, {
-        showLoading(it)
-    })
+        viewModel.isLoading.observe(this, {
+            showLoading(it)
+        })
 
-}
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
@@ -76,13 +77,13 @@ class MainActivity : AppCompatActivity() {
             /*
             Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
              */
-            override fun onQueryTextChange(newText: String): Boolean {
+            override fun onQueryTextChange(query: String): Boolean {
+                viewModel.findUsers(query)
                 return false
             }
         })
         return true
     }
-
 
 
     private fun showLoading(isLoading: Boolean) {

@@ -11,9 +11,7 @@ import retrofit2.Response
 
 class FollowerViewModel : ViewModel() {
     val follower = MutableLiveData<ArrayList<User>>()
-    fun getFollower(): LiveData<ArrayList<User>>{
-        return follower
-    }
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -40,5 +38,9 @@ class FollowerViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun getFollower(): LiveData<ArrayList<User>> {
+        return follower
     }
 }

@@ -9,36 +9,39 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
-    val user = MutableLiveData<User>()
-    fun getUserDetail(): LiveData<User> {
-        return user
-    }
+class FollowingViewModel : ViewModel() {
+    val following = MutableLiveData<ArrayList<User>>()
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun setUserDetail(username: String) {
+    fun setFollowing(username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getUserDetail(username)
-        client.enqueue(object : Callback<User> {
+        val client = ApiConfig.getApiService().getFollowing(username)
+        client.enqueue(object : Callback<ArrayList<User>> {
             override fun onResponse(
-                call: Call<User>,
-                response: Response<User>
+                call: Call<ArrayList<User>>,
+                response: Response<ArrayList<User>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    user.postValue(response.body())
+                    following.postValue(response.body())
                 } else {
                     Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
             }
 
         })
     }
+
+    fun getFollowing(): LiveData<ArrayList<User>> {
+        return following
+    }
+
 }

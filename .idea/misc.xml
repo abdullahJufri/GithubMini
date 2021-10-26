@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_detail_user.xml" value="0.152" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/ic_circle_black_24.xml" value="0.2490740740740741" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_detail_user.xml" value="0.536" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_splash_screen.xml" value="0.12760416666666666" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/fragment_follower.xml" value="0.264" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/fragment_following.xml" value="0.4" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/item_row_user.xml" value="0.19444444444444445" />

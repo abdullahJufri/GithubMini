@@ -2,10 +2,10 @@ package com.dicoding.githubmini
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubmini.databinding.FragmentFollowerBinding
@@ -27,12 +27,10 @@ class FollowerFragment : Fragment() {
     ): View? {
 
 
-        // Inflate the layout for this fragment
         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
         val view = binding.root
         val arg = arguments
         username = arg?.getString(EXTRA_FOLLOWER).toString()
-//        username = requireArguments().getString(EXTRA_FOLLOWER).toString()
 
         adapter = UsersAdapter()
         adapter.notifyDataSetChanged()
@@ -74,11 +72,11 @@ class FollowerFragment : Fragment() {
 
 
     companion object {
-        const val  EXTRA_FOLLOWER = "extra_follower"
+        const val EXTRA_FOLLOWER = "extra_follower"
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
-        fun newInstance(index : Int ,string: String) =
+        fun newInstance(index: Int, string: String) =
             FollowerFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
@@ -86,6 +84,6 @@ class FollowerFragment : Fragment() {
                 }
             }
 
-        }
-
     }
+
+}
