@@ -1,10 +1,13 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.main
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.githubmini.api.ApiConfig
+import com.dicoding.githubmini.api.User
+import com.dicoding.githubmini.api.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

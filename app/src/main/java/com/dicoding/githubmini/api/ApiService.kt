@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.api
 
 import retrofit2.Call
 import retrofit2.http.GET

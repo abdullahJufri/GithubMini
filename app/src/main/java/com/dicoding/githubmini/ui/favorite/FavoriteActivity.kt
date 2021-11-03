@@ -1,13 +1,15 @@
 package com.dicoding.githubmini.ui.favorite
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubmini.*
+import com.dicoding.githubmini.api.UserFavorite
 import com.dicoding.githubmini.database.Favorite
 import com.dicoding.githubmini.databinding.ActivityFavoriteBinding
+import com.dicoding.githubmini.ui.detail.DetailUserActivity
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
@@ -20,7 +22,7 @@ class FavoriteActivity : AppCompatActivity() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setTitle("Favorite User")
+        supportActionBar?.title = "Favorite User"
 
 
         adapter = FavoriteAdapter()
@@ -47,7 +49,7 @@ class FavoriteActivity : AppCompatActivity() {
             rvUser.adapter = adapter
         }
 
-        viewModel.getFavoriteUser()?.observe( this, {
+        viewModel.getFavoriteUser()?.observe(this, {
             if (it != null) {
                 val list = mapList(it)
                 adapter.setList(list)

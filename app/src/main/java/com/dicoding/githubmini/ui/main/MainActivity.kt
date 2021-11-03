@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.main
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
@@ -18,14 +18,18 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubmini.R
+import com.dicoding.githubmini.api.User
 import com.dicoding.githubmini.databinding.ActivityMainBinding
 import com.dicoding.githubmini.theme.SettingPreferences
 import com.dicoding.githubmini.theme.ThemeViewModel
 import com.dicoding.githubmini.theme.ViewModelFactory
+import com.dicoding.githubmini.ui.detail.DetailUserActivity
 import com.dicoding.githubmini.ui.favorite.FavoriteActivity
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -103,9 +107,11 @@ class MainActivity : AppCompatActivity() {
         val item: MenuItem = menu.findItem(R.id.dark_mode)
         item.setActionView(R.layout.dark_mode_switch)
 
-        val switch: SwitchMaterial = menu.findItem(R.id.dark_mode).actionView.findViewById(R.id.switch_theme)
+        val switch: SwitchMaterial =
+            menu.findItem(R.id.dark_mode).actionView.findViewById(R.id.switch_theme)
         val pref = SettingPreferences.getInstance(dataStore)
-        val themeViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(ThemeViewModel::class.java)
+        val themeViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref)).get(ThemeViewModel::class.java)
 
         themeViewModel.getThemeSettings().observe(this, { isDarkMode: Boolean ->
             if (isDarkMode) {

@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.detail
 
 import android.app.Application
 import android.content.ContentValues
@@ -6,7 +6,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.dicoding.githubmini.api.ApiConfig
+import com.dicoding.githubmini.api.User
 import com.dicoding.githubmini.database.Favorite
 import com.dicoding.githubmini.database.FavoriteDao
 import com.dicoding.githubmini.database.FavoriteDatabase

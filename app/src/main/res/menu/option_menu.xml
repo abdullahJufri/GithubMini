@@ -12,13 +12,13 @@
         android:id="@+id/favorite_menu"
         android:icon="@drawable/ic_favorite_white_24"
         android:title="@string/favorite"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/dark_mode"
+        android:actionLayout="@layout/dark_mode_switch"
         android:icon="@drawable/ic_dark_mode_white_24"
         android:title=""
-        android:actionLayout="@layout/dark_mode_switch"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>

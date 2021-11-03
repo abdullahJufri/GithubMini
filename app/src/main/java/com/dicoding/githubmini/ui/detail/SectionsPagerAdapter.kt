@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

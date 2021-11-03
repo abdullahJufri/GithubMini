@@ -20,7 +20,7 @@
     </style>
 
     <style name="TextContent.Title">
-        <item name="android:textColor">@color/gray_1</item>
+
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>

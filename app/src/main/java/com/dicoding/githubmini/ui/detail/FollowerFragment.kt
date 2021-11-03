@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,26 +8,30 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.githubmini.databinding.FragmentFollowingBinding
+import com.dicoding.githubmini.databinding.FragmentFollowerBinding
+import com.dicoding.githubmini.ui.main.UsersAdapter
 
 
-class FollowingFragment : Fragment() {
-    private var _binding: FragmentFollowingBinding? = null
+class FollowerFragment : Fragment() {
+
+    private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: FollowingViewModel
+    private lateinit var viewModel: FollowerViewModel
     private lateinit var adapter: UsersAdapter
     private lateinit var username: String
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
+
+
+        _binding = FragmentFollowerBinding.inflate(inflater, container, false)
         val view = binding.root
         val arg = arguments
-        username = arg?.getString(EXTRA_FOLLOWING).toString()
-
+        username = arg?.getString(EXTRA_FOLLOWER).toString()
 
         adapter = UsersAdapter()
         adapter.notifyDataSetChanged()
@@ -36,15 +40,15 @@ class FollowingFragment : Fragment() {
             rvUsers.setHasFixedSize(true)
             rvUsers.layoutManager = LinearLayoutManager(activity)
             rvUsers.adapter = adapter
-        }
 
+        }
         showLoading(true)
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(FollowingViewModel::class.java)
-        viewModel.setFollowing(username)
-        viewModel.getFollowing().observe(viewLifecycleOwner, {
+        ).get(FollowerViewModel::class.java)
+        viewModel.setFollower(username)
+        viewModel.getFollower().observe(viewLifecycleOwner, {
             if (it != null) {
                 adapter.setList(it)
                 showLoading(false)
@@ -69,19 +73,18 @@ class FollowingFragment : Fragment() {
 
 
     companion object {
-        const val EXTRA_FOLLOWING = "extra_following"
+        const val EXTRA_FOLLOWER = "extra_follower"
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
         fun newInstance(index: Int, string: String) =
-            FollowingFragment().apply {
+            FollowerFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
-                    putString(EXTRA_FOLLOWING, string)
+                    putString(EXTRA_FOLLOWER, string)
                 }
             }
 
     }
-
 
 }

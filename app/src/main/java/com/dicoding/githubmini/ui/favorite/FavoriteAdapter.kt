@@ -1,15 +1,16 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.dicoding.githubmini.api.UserFavorite
 import com.dicoding.githubmini.databinding.ItemRowUserBinding
 import java.util.*
 
-class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
-    private val listUser = ArrayList<User>()
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.UserViewHolder>() {
+    private val listUser = ArrayList<UserFavorite>()
     private var onItemClickCallback: OnItemClickCallback? = null
 
 
@@ -17,19 +18,19 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setList(users: ArrayList<User>) {
+    fun setList(users: ArrayList<UserFavorite>) {
         listUser.clear()
         listUser.addAll(users)
         notifyDataSetChanged()
     }
 
     class UserViewHolder(val binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(user: UserFavorite) {
             binding.apply {
                 tvItemName.text = user.login
-                tvItemHtmlurl.text = user.htmlUrl
+                tvItemHtmlurl.text = user.html_Url
                 Glide.with(itemView)
-                    .load(user.avatarUrl)
+                    .load(user.avatar_Url)
                     .transform(CircleCrop())
                     .into(imgItemAvatar)
             }
@@ -56,7 +57,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: UserFavorite)
 
     }
 }

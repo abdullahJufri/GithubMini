@@ -1,4 +1,4 @@
-package com.dicoding.githubmini
+package com.dicoding.githubmini.api
 
 import com.google.gson.annotations.SerializedName
 
