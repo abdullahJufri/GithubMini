@@ -22,6 +22,7 @@ import com.dicoding.githubmini.databinding.ActivityMainBinding
 import com.dicoding.githubmini.theme.SettingPreferences
 import com.dicoding.githubmini.theme.ThemeViewModel
 import com.dicoding.githubmini.theme.ViewModelFactory
+import com.dicoding.githubmini.ui.favorite.FavoriteActivity
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -46,6 +47,9 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClicked(data: User) {
                 Intent(this@MainActivity, DetailUserActivity::class.java).also {
                     it.putExtra(DetailUserActivity.EXTRA_USERNAME, data.login)
+                    it.putExtra(DetailUserActivity.EXTRA_ID, data.id)
+                    it.putExtra(DetailUserActivity.EXTRA_URL, data.avatarUrl)
+                    it.putExtra(DetailUserActivity.EXTRA_HTML, data.htmlUrl)
                     startActivity(it)
                 }
             }
@@ -118,6 +122,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite_menu -> {
+                Intent(this, FavoriteActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

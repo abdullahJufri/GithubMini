@@ -13,6 +13,10 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.dicoding.githubmini.databinding.ActivityDetailUserBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailUserActivity : AppCompatActivity() {
 
@@ -25,13 +29,13 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        ).get(DetailUserViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
 
 
-        val username: String = intent.getStringExtra(EXTRA_USERNAME).toString()
+        val username = intent.getStringExtra(EXTRA_USERNAME)
+        val id = intent.getIntExtra(EXTRA_ID, 0)
+        val avatarUrl: String = intent.getStringExtra(EXTRA_URL).toString()
+        val htmlUrl = intent.getStringExtra(EXTRA_HTML)
         val bundle = Bundle()
         bundle.putString(EXTRA_USERNAME, username)
 
@@ -58,7 +62,41 @@ class DetailUserActivity : AppCompatActivity() {
                 }
             }
         })
-        val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailUserActivity, username)
+        //cek apakah sudah difavoritkan atau belum
+        var _isChecked = false
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = viewModel.checkUser(id)
+            withContext(Dispatchers.Main) {
+                if (count != null) {
+                    if (count > 0) {
+                        binding.toggleFavorite.isChecked = true
+                        _isChecked = true
+                    } else {
+                        binding.toggleFavorite.isChecked = false
+                        _isChecked = false
+                    }
+                }
+            }
+        }
+
+        // untuk meremove favorite
+        binding.toggleFavorite.setOnClickListener {
+            _isChecked = !_isChecked
+            if (_isChecked) {
+                if (htmlUrl != null) {
+                    if (username != null) {
+                        viewModel.addFavorite(username, id, avatarUrl, htmlUrl)
+                    }
+                }
+            } else {
+                viewModel.removeFavorite(id)
+            }
+            binding.toggleFavorite.isChecked = _isChecked
+        }
+
+        val sectionsPagerAdapter = username?.let {
+            SectionsPagerAdapter(this@DetailUserActivity, it)
+        }
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
 
@@ -84,6 +122,9 @@ class DetailUserActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USERNAME = "extra_username"
+        const val EXTRA_ID = "extra_id"
+        const val EXTRA_URL = "extra_url"
+        const val EXTRA_HTML = "extra_html"
 
         @StringRes
         private val TITLE_TAB = intArrayOf(R.string.follower, R.string.following)

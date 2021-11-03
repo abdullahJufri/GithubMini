@@ -1,19 +1,37 @@
 package com.dicoding.githubmini
 
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.githubmini.database.Favorite
+import com.dicoding.githubmini.database.FavoriteDao
+import com.dicoding.githubmini.database.FavoriteDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
-    val user = MutableLiveData<User>()
+class DetailUserViewModel(application: Application) : AndroidViewModel(application){
+val user = MutableLiveData<User>()
     fun getUserDetail(): LiveData<User> {
         return user
     }
+
+
+    private var userDao: FavoriteDao?
+    private var userDb : FavoriteDatabase?
+
+    init {
+        userDb = FavoriteDatabase.getDatabase(application)
+        userDao = userDb?.favoriteDao()
+    }
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -40,5 +58,21 @@ class DetailUserViewModel : ViewModel() {
             }
 
         })
+    }
+
+
+    fun addFavorite(username: String, id: Int, avatarUrl: String, html_url: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var user = Favorite(username, id, avatarUrl, html_url)
+            userDao?.addFavorite(user)
+        }
+    }
+
+    suspend fun checkUser(id: Int) = userDao?.checkUser(id)
+
+    fun removeFavorite(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao?.removeFavorite(id)
+        }
     }
 }

@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/favorite_toggle.xml" value="0.2128205128205128" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.26205128205128203" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/ic_circle_black_24.xml" value="0.2490740740740741" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/ic_favorite_white_24.xml" value="0.26205128205128203" />
-        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_detail_user.xml" value="0.4" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/drawable/ic_work_gray_24.xml" value="0.2128205128205128" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_detail_user.xml" value="0.72" />
+        <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_favorite.xml" value="0.1" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/activity_splash_screen.xml" value="0.12760416666666666" />
         <entry key="..\:/kuliah/dicoding/GithubMini/app/src/main/res/layout/dark_mode_switch.xml" value="0.25" />
