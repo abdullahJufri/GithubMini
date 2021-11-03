@@ -2,17 +2,29 @@ package com.dicoding.githubmini
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubmini.databinding.ActivityMainBinding
+import com.dicoding.githubmini.theme.SettingPreferences
+import com.dicoding.githubmini.theme.ThemeViewModel
+import com.dicoding.githubmini.theme.ViewModelFactory
+import com.google.android.material.switchmaterial.SwitchMaterial
 
-
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -82,6 +94,29 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+
+
+        val item: MenuItem = menu.findItem(R.id.dark_mode)
+        item.setActionView(R.layout.dark_mode_switch)
+
+        val switch: SwitchMaterial = menu.findItem(R.id.dark_mode).actionView.findViewById(R.id.switch_theme)
+        val pref = SettingPreferences.getInstance(dataStore)
+        val themeViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(ThemeViewModel::class.java)
+
+        themeViewModel.getThemeSettings().observe(this, { isDarkMode: Boolean ->
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                switch.isChecked = true
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                switch.isChecked = false
+            }
+        })
+
+        switch.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            themeViewModel.saveThemeSetting(isChecked)
+        }
+
         return true
     }
 

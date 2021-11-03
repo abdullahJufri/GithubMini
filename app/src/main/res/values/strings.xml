@@ -14,5 +14,6 @@
 
     <string name="search">Search</string>
     <string name="htmlurl">html url</string>
+    <string name="favorite">favorite</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
